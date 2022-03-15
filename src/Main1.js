@@ -5,7 +5,9 @@ const config = {
     heigth: 640,
     scale: {
         mode: Phaser.Scale.RESIZE,
-        autoCenter: Phaser.Scale.CENTER_BOTH
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 5120,
+        heigth: 640
     },
     physics: {
         default: 'arcade',
