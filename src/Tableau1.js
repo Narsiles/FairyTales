@@ -4,6 +4,10 @@ class Tableau1 extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/images/background.png');
+        this.load.image('luciole', 'deposez assets pour tileset ici/luciole.png');
+        this.load.image('yellowFlares', 'deposez assets pour tileset ici/yellowFlares.png');
+
+
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
@@ -28,6 +32,32 @@ class Tableau1 extends Phaser.Scene {
         const platforms1 = map.createStaticLayer('Base', tileset, 0, 200);
 
         platforms1.setCollisionByExclusion(-1, true);
+
+
+
+        //Luciole particules / anim
+
+        this.luciole = this.physics.add.sprite(50, 300, 'luciole');
+        this.luciole.body.setAllowGravity(false);
+        this.tweens.add({
+            targets: this.luciole,
+            x: 400,
+            duration: 4000,
+            ease: 'Power2',
+            loop: -1,
+            yoyo: true,
+        });
+        let yellowParticles = this.add.particles('yellowFlares');
+        let particle=yellowParticles.createEmitter({
+            alpha: { start: 0.5, end: 0 },
+            scale: { start: 0.1, end: 0.1},
+            //tint: { start: 0xff945e, end: 0xff945e },
+            blendMode: 'ADD',
+            frequency: 0.5,
+            x: this.luciole.x,
+            y: this.luciole.y
+        });
+        particle.startFollow(this.luciole)
 
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0.1);
