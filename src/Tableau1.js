@@ -4,10 +4,10 @@ class Tableau1 extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/images/background.png');
-        this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('tiles1', 'assets/tilesets/tilesheetFT.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/blockout.json');
 
@@ -23,13 +23,16 @@ class Tableau1 extends Phaser.Scene {
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('platformPack_tilesheet', 'tiles');
-        const platforms = map.createStaticLayer('Decor', tileset, 0, 200);
-        platforms.setCollisionByExclusion(-1, true);
+
+        
+        const platforms1 = map.createStaticLayer('Base', tileset, 0, 200);
+
+        platforms1.setCollisionByExclusion(-1, true);
 
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
-        this.physics.add.collider(this.player, platforms);
+        this.physics.add.collider(this.player, platforms1);
 
         this.anims.create({
             key: 'walk',
