@@ -27,11 +27,19 @@ class Tableau1 extends Phaser.Scene {
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('platformPack_tilesheet', 'tiles');
+        const tilesetB = map.addTilesetImage('tilesheetFT', 'tiles');
 
-        
+        const platforms5 = map.createStaticLayer('ciel', tileset, 0, 200);
+        const platforms4 = map.createStaticLayer('plan4', tileset, 0, 200);
+        const platforms3 = map.createStaticLayer('plan3', tilesetB, 0, 200);
+        const platforms2 = map.createStaticLayer('Decor', tilesetB, 0, 200);
         const platforms1 = map.createStaticLayer('Base', tileset, 0, 200);
 
         platforms1.setCollisionByExclusion(-1, true);
+        platforms2.setCollisionByExclusion(-1, false);
+        platforms3.setCollisionByExclusion(-1, false);
+        platforms4.setCollisionByExclusion(-1, false);
+        platforms5.setCollisionByExclusion(-1, false);
 
 
 
