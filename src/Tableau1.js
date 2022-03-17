@@ -10,8 +10,7 @@ class Tableau1 extends Phaser.Scene {
 
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
-        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
-        this.load.image('tiles1', 'assets/tilesets/tilesheetFT.png');
+        this.load.image('tiles', 'assets/tilesets/tilesheetFT.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/blockout.json');
 
@@ -27,13 +26,12 @@ class Tableau1 extends Phaser.Scene {
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('platformPack_tilesheet', 'tiles');
-        const tilesetB = map.addTilesetImage('tilesheetFT', 'tiles');
+        const tileset = map.addTilesetImage('tilesheetFT', 'tiles');
 
         const platforms5 = map.createStaticLayer('ciel', tileset, 0, 200);
         const platforms4 = map.createStaticLayer('plan4', tileset, 0, 200);
-        const platforms3 = map.createStaticLayer('plan3', tilesetB, 0, 200);
-        const platforms2 = map.createStaticLayer('Decor', tilesetB, 0, 200);
+        const platforms3 = map.createStaticLayer('plan3', tileset, 0, 200);
+        const platforms2 = map.createStaticLayer('Decor', tileset, 0, 200);
         const platforms1 = map.createStaticLayer('Base', tileset, 0, 200);
 
         platforms1.setCollisionByExclusion(-1, true);
