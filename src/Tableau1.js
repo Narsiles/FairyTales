@@ -20,6 +20,7 @@ class Tableau1 extends Phaser.Scene {
     function
 
     create() {
+        this.vuelarge = false;
         this.largeurniveau = 5120;
         this.hauteurniveau = 640;
 
@@ -101,7 +102,6 @@ class Tableau1 extends Phaser.Scene {
         this.zoom = 1;
         this.cameras.main.setBounds(0, 0, this.largeurniveau, this.hauteurniveau);
         this.cameras.main.setZoom(1);
-        this.cameras.main.setOrigin(this.largeurniveau/2, this.hauteurniveau/2);
 
         this.initKeyboard();
     }
@@ -114,33 +114,45 @@ class Tableau1 extends Phaser.Scene {
         var cam = this.cameras.main;
 
         //touches relâchées
+        this.input.keyboard.on('keydown', function(kevent)
+        {
+            switch (kevent.keyCode)
+            {
+                case Phaser.Input.Keyboard.KeyCodes.R:
+                    cam.useBounds=false;
+                    me.vuelarge = true;
+                    cam.centerOn(me.largeurniveau/2, me.hauteurniveau/2);
+                    console.log('le pan est passé :o')
+                    cam.zoomTo(0.2, 0);
+                    break;
+            }
+        })
+
+        //touches relâchées
         this.input.keyboard.on('keyup', function(kevent)
         {
             switch (kevent.keyCode)
             {
-                case Phaser.Input.Keyboard.KeyCodes.M:
-                    if(me.zoom<=1.2)
+                case Phaser.Input.Keyboard.KeyCodes.I:
+                    if(me.zoom<=1.4)
                     {
                         me.zoom += 0.1
-                        cam.zoomTo(me.zoom, 500);
+                        cam.zoomTo(me.zoom, 250);
                         break;
                     }
                     break;
-            case Phaser.Input.Keyboard.KeyCodes.L:
-                if(me.zoom>=0.7)
-                {
-                    me.zoom -= 0.1
+                case Phaser.Input.Keyboard.KeyCodes.L:
+                    if(me.zoom>=0.9)
+                    {
+                        me.zoom -= 0.1
+                        cam.zoomTo(me.zoom, 250);
+                        break;
+                    }
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.R:
+                    me.vuelarge = false;
                     cam.zoomTo(me.zoom, 500);
                     break;
-                }
-                break;
-            case Phaser.Input.Keyboard.KeyCodes.R:
-                console.log('ygreg=',cam.y,'  Igz=',cam.x);
-                console.log(me.largeurniveau);
-                cam.pan(me.largeurniveau,me.hauteurniveau, 20000, 'Power2');
-                cam.zoomTo(0.4, 2000);
-                console.log('ygreg=',cam.y,'  Igz=',cam.x);
-                break;
             }
         })
     }
@@ -184,7 +196,12 @@ class Tableau1 extends Phaser.Scene {
         }
 
         //CAMERA
-        this.cameras.main.centerOn(this.player.x,this.player.y);
+        if(this.vuelarge == false)
+        {
+            this.cameras.main.centerOn(this.player.x,this.player.y);
+            this.cameras.main.useBounds=true;
+            this.cameras.main.setBounds(0, 0, this.largeurniveau, this.hauteurniveau);
+        }
     }
 
 }
