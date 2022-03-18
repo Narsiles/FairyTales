@@ -3,73 +3,20 @@ class Tableau1 extends Phaser.Scene {
     function
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
         this.load.image('luciole', 'deposez assets pour tileset ici/luciole.png');
         this.load.image('yellowFlares', 'deposez assets pour tileset ici/yellowFlares.png');
-
-
-        // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
-        this.load.image('tiles', 'assets/tilesets/tilesheetFT.png');
-        // Load the export Tiled JSON
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/blockout.json');
-
     }
 
     function
 
     create() {
-        this.vuelarge = false;
-        this.largeurniveau = 5120;
-        this.hauteurniveau = 640;
 
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(2, 0.8);
-        const map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('tilesheetFT', 'tiles');
-
-        const platforms5 = map.createStaticLayer('ciel', tileset, 0, 200);
-        const platforms4 = map.createStaticLayer('plan4', tileset, 0, 200);
-        const platforms3 = map.createStaticLayer('plan3', tileset, 0, 200);
-        const platforms2 = map.createStaticLayer('Decor', tileset, 0, 200);
-        const platforms1 = map.createStaticLayer('Base', tileset, 0, 200);
-
-        platforms1.setCollisionByExclusion(-1, true);
-        platforms2.setCollisionByExclusion(-1, false);
-        platforms3.setCollisionByExclusion(-1, false);
-        platforms4.setCollisionByExclusion(-1, false);
-        platforms5.setCollisionByExclusion(-1, false);
-
-
-
-        //Luciole particules / anim
-
-        this.luciole = this.physics.add.sprite(50, 300, 'luciole');
-        this.luciole.body.setAllowGravity(false);
-        this.tweens.add({
-            targets: this.luciole,
-            x: 400,
-            duration: 4000,
-            ease: 'Power2',
-            loop: -1,
-            yoyo: true,
-        });
-        let yellowParticles = this.add.particles('yellowFlares');
-        let particle=yellowParticles.createEmitter({
-            alpha: { start: 0.5, end: 0 },
-            scale: { start: 0.1, end: 0.1},
-            //tint: { start: 0xff945e, end: 0xff945e },
-            blendMode: 'ADD',
-            frequency: 0.5,
-            x: this.luciole.x,
-            y: this.luciole.y
-        });
-        particle.startFollow(this.luciole)
 
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
-        this.physics.add.collider(this.player, platforms1);
+
 
         this.anims.create({
             key: 'walk',
@@ -105,6 +52,7 @@ class Tableau1 extends Phaser.Scene {
     }
 
     function
+
 
     initKeyboard()
     {
@@ -154,6 +102,7 @@ class Tableau1 extends Phaser.Scene {
             }
         })
     }
+
 
     function
 
