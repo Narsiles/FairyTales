@@ -1,6 +1,13 @@
 class TableauTiled extends Tableau1 {
 
 
+    loadFrames(prefix,url,length) {
+        let frames = [];
+        for (let i = 1; i <= length; i++) {
+            this.load.image(prefix + i, url + i + '.png')
+        }
+        return frames;
+    }
 
     preload() {
         super.preload();
@@ -19,6 +26,7 @@ class TableauTiled extends Tableau1 {
         this.load.image('Emit4', 'assets/anims/Emit4.png');
         this.load.image('Emit5', 'assets/anims/Emit5.png');
         this.load.image('Emit6', 'assets/anims/Emit6.png');
+        this.loadFrames('TreeAube', 'asset/aa/fantome',3);
 
 
         // At last image must be loaded with its JSON
@@ -33,6 +41,18 @@ class TableauTiled extends Tableau1 {
 
     create() {
         super.create();
+
+        this.anims.create({
+            key: 'TreeMoove',
+            frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15}),
+            frameRate: 12,
+            repeat: 5,
+            showOnStart:false,
+            hideOnComplete:true,
+        });
+
+       this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15});
+
 
         // On créer la taille du niveau
         this.vuelarge = false;
@@ -52,6 +72,10 @@ class TableauTiled extends Tableau1 {
 
         //On charge les layers Tiled du dernier au premier plan, les layers de Tiles sont une simple ligne
         const platforms5 = map.createLayer('ciel', tileset, 0, 200);
+        const platforms4 = map.createLayer('plan4', tileset, 0, 200);
+        const platforms3 = map.createLayer('plan3', tileset, 0, 200);
+        const platforms2 = map.createLayer('Decor', tileset, 0, 200);
+        const platforms0 = map.createLayer('Plan1', tileset, 0, 200);
 
         this.Emit3 = this.physics.add.group({
             allowGravity: false,
@@ -63,9 +87,7 @@ class TableauTiled extends Tableau1 {
             Emit3Sprite.body.setSize(Emit3.width, Emit3.height).setOffset(0,0);
         });
 
-        const platforms4 = map.createLayer('plan4', tileset, 0, 200);
-        const platforms3 = map.createLayer('plan3', tileset, 0, 200);
-        const platforms2 = map.createLayer('Decor', tileset, 0, 200);
+
 
         //Les layers d'objets : on charge d'abord la physique des objets.
         this.arbre4 = this.physics.add.group({
@@ -79,6 +101,8 @@ class TableauTiled extends Tableau1 {
             arbre4Sprite.body.setSize(arbre4.width, arbre4.height).setOffset(0,0);
             arbre4Sprite.scrollFactorX=0.97;
         });
+
+
 
         this.arbre3 = this.physics.add.group({
             allowGravity: false,
@@ -143,20 +167,39 @@ class TableauTiled extends Tableau1 {
             Emit1Sprite.body.setSize(Emit1.width, Emit1.height).setOffset(0,0);
         });
 
+
+
+       this.configFX1 = {
+            lifespan: 2000,
+            speed: { min: 400, max: 600 },
+            angle: 330,
+            gravityY: 300,
+            scale: { start: 0.4, end: 0 },
+            quantity: 2,
+            blendMode: 'ADD'
+        };
+
         this.luciole1 = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
 
         map.getObjectLayer('Luciole1').objects.forEach((luciole1) => {
-            const luciole1Sprite = this.luciole1.create(luciole1.x, luciole1.y + 200 - luciole1.height, 'luciole1').setOrigin(0);
-            luciole1Sprite.body.setSize(luciole1.width, luciole1.height).setOffset(0,0);
+            this.luciole1Sprite = this.luciole1.create(luciole1.x, luciole1.y + 200 - luciole1.height, 'luciole1');
+            this.luciole1Sprite.body.setSize(luciole1.width, luciole1.height);
+            this.luciole1SpriteFX = this.add.particles('luciole1')
+            this.luciole1SpriteFX.createEmitter(this.configFX1)
+            this.luciole1SpriteFX.x = this.luciole1Sprite.x
+            this.luciole1SpriteFX.y = this.luciole1Sprite.y
         });
+
+
 
         this.luciole2 = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
+
 
         map.getObjectLayer('Luciole2').objects.forEach((luciole2) => {
             const luciole2Sprite = this.luciole2.create(luciole2.x, luciole2.y + 200 - luciole2.height, 'luciole2').setOrigin(0);
@@ -205,7 +248,7 @@ class TableauTiled extends Tableau1 {
             Emit6Sprite.body.setSize(Emit6.width, Emit6.height).setOffset(0,0);
         });
 
-        const platforms0 = map.createLayer('Plan1', tileset, 0, 200);
+
 
         // on donne les collisions ou non
         platforms0.setCollisionByExclusion(-1, false);
