@@ -48,7 +48,17 @@ class Tableau1 extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.largeurniveau, this.hauteurniveau);
         this.cameras.main.setZoom(1);
 
+        this.scrollspeed=0
+
         this.initKeyboard();
+
+        this.platforms1.scrollFactorX=1; //SOL
+        this.platforms0.scrollFactorX=0.8; //Bushes
+        this.platforms2.scrollFactorX=0.6; //Bushes2
+        this.platforms3.scrollFactorX=0.4; //MONTAGNES
+        this.platforms4.scrollFactorX=0.3; //NUAGES
+        this.platforms5.scrollFactorX=0.2; //CIEL
+
     }
 
     function
@@ -109,11 +119,13 @@ class Tableau1 extends Phaser.Scene {
     update() {
         // Control the player with left or right keys
         if (this.cursors.left.isDown) {
+            this.scrollspeed=-3;
             this.player.setVelocityX(-200);
             if (this.player.body.onFloor()) {
                 this.player.play('walk', true);
             }
         } else if (this.cursors.right.isDown) {
+            this.scrollspeed=3;
             this.player.setVelocityX(200);
             if (this.player.body.onFloor()) {
                 this.player.play('walk', true);
@@ -121,6 +133,7 @@ class Tableau1 extends Phaser.Scene {
         } else {
             // If no keys are pressed, the player keeps still
             this.player.setVelocityX(0);
+            this.scrollspeed=0;
             // Only show the idle animation if the player is footed
             // If this is not included, the player would look idle while jumping
             if (this.player.body.onFloor()) {
@@ -143,6 +156,7 @@ class Tableau1 extends Phaser.Scene {
         }
 
         //CAMERA
+        this.cameras.main.scrollX+=this.scrollspeed;
         if(this.vuelarge == false)
         {
             this.cameras.main.centerOn(this.player.x,this.player.y);
