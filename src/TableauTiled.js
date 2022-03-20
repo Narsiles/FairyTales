@@ -75,6 +75,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre4').objects.forEach((arbre4) => {
             const arbre4Sprite = this.arbre4.create(arbre4.x, arbre4.y + 200 - arbre4.height, 'arbre4').setOrigin(0);
             arbre4Sprite.body.setSize(arbre4.width, arbre4.height).setOffset(0,0);
+            arbre4Sprite.scrollFactorX=0.97;
         });
 
         this.arbre3 = this.physics.add.group({
@@ -85,6 +86,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre3').objects.forEach((arbre3) => {
             const arbre3Sprite = this.arbre3.create(arbre3.x, arbre3.y + 200 - arbre3.height, 'arbre3').setOrigin(0);
             arbre3Sprite.body.setSize(arbre3.width, arbre3.height).setOffset(0,0);
+            arbre3Sprite.scrollFactorX=0.97;
         });
 
         this.arbre2 = this.physics.add.group({
@@ -95,6 +97,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre2').objects.forEach((arbre2) => {
             const arbre2Sprite = this.arbre2.create(arbre2.x, arbre2.y + 200 - arbre2.height, 'arbre2').setOrigin(0);
             arbre2Sprite.body.setSize(arbre2.width, arbre2.height).setOffset(0,0);
+            arbre3Sprite.scrollFactorX=0.97;
         });
 
         this.arbre1 = this.physics.add.group({
@@ -105,6 +108,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre1').objects.forEach((arbre1) => {
             const arbre1Sprite = this.arbre1.create(arbre1.x, arbre1.y + 200 - arbre1.height, 'arbre1').setOrigin(0);
             arbre1Sprite.body.setSize(arbre1.width, arbre1.height).setOffset(0,0);
+            arbre1Sprite.scrollFactorX=0.97;
         });
 
         this.Emit4 = this.physics.add.group({
@@ -213,6 +217,13 @@ class TableauTiled extends Tableau1 {
         this.physics.add.collider(this.player, platforms1);
 
 
+        platforms1.scrollFactorX=1; //SOL
+        platforms0.scrollFactorX=1.03;//Bushes
+
+        platforms2.scrollFactorX=0.95; //Bushes2
+        platforms3.scrollFactorX=0.90; //MONTAGNES
+        platforms4.scrollFactorX=0.87; //NUAGES
+        platforms5.scrollFactorX=1; //CIEL
 
     }
 

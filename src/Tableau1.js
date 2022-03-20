@@ -52,12 +52,7 @@ class Tableau1 extends Phaser.Scene {
 
         this.initKeyboard();
 
-        this.platforms1.scrollFactorX=1; //SOL
-        this.platforms0.scrollFactorX=0.8; //Bushes
-        this.platforms2.scrollFactorX=0.6; //Bushes2
-        this.platforms3.scrollFactorX=0.4; //MONTAGNES
-        this.platforms4.scrollFactorX=0.3; //NUAGES
-        this.platforms5.scrollFactorX=0.2; //CIEL
+
 
     }
 
