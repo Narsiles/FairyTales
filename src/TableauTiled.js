@@ -97,7 +97,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre2').objects.forEach((arbre2) => {
             const arbre2Sprite = this.arbre2.create(arbre2.x, arbre2.y + 200 - arbre2.height, 'arbre2').setOrigin(0);
             arbre2Sprite.body.setSize(arbre2.width, arbre2.height).setOffset(0,0);
-            arbre3Sprite.scrollFactorX=0.97;
+            arbre2Sprite.scrollFactorX=0.97;
         });
 
         this.arbre1 = this.physics.add.group({
@@ -219,7 +219,6 @@ class TableauTiled extends Tableau1 {
 
         platforms1.scrollFactorX=1; //SOL
         platforms0.scrollFactorX=1.03;//Bushes
-
         platforms2.scrollFactorX=0.95; //Bushes2
         platforms3.scrollFactorX=0.90; //MONTAGNES
         platforms4.scrollFactorX=0.87; //NUAGES
