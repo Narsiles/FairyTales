@@ -38,6 +38,8 @@ class TableauTiled extends Tableau1 {
         this.vuelarge = false;
         this.largeurniveau = 5120;
         this.hauteurniveau = 640;
+        this.largeurcamera = 1200;
+        this.hauteurcamera = 640;
 
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8);

@@ -70,11 +70,18 @@ class Tableau1 extends Phaser.Scene {
             switch (kevent.keyCode)
             {
                 case Phaser.Input.Keyboard.KeyCodes.R:
-                    cam.useBounds=false;
+                    cam.useBounds=false; //la caméra peut allez en dehors de la map
                     me.vuelarge = true;
-                    cam.centerOn(me.largeurniveau/2, me.hauteurniveau/2);
-                    console.log('le pan est passé :o')
-                    cam.zoomTo(0.2, 0);
+                    cam.centerOn(me.largeurniveau/2, me.hauteurniveau/2); //la caméra va au centre de la map
+                    //on vérifie si la map est plus grande sur sa hauteur ou sur sa largeur
+                    if(me.largeurniveau>me.hauteurniveau)
+                    {
+                        cam.zoomTo(me.largeurcamera/me.largeurniveau, 0); //la caméra se dézoom pile sur la largeur
+                    }
+                    else
+                    {
+                        cam.zoomTo(me.hauteurcamera/me.hauteurniveau, 0); //la caméra se dézoom pile sur la hauteur
+                    }
                     break;
             }
         })
@@ -85,24 +92,24 @@ class Tableau1 extends Phaser.Scene {
             switch (kevent.keyCode)
             {
                 case Phaser.Input.Keyboard.KeyCodes.I:
-                    if(me.zoom<=1.4)
+                    if(me.zoom<=1.4) //on met un maximum de zoom
                     {
                         me.zoom += 0.1
-                        cam.zoomTo(me.zoom, 250);
+                        cam.zoomTo(me.zoom, 250); //fonction de zoom
                         break;
                     }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.L:
-                    if(me.zoom>=0.9)
+                    if(me.zoom>=0.9) //on met un maximum de dézoom
                     {
                         me.zoom -= 0.1
-                        cam.zoomTo(me.zoom, 250);
+                        cam.zoomTo(me.zoom, 250); //fonction de zoom
                         break;
                     }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.R:
                     me.vuelarge = false;
-                    cam.zoomTo(me.zoom, 500);
+                    cam.zoomTo(me.zoom, 500); //on remet le zoom à la normal
                     break;
             }
         })
@@ -152,10 +159,10 @@ class Tableau1 extends Phaser.Scene {
 
         //CAMERA
         this.cameras.main.scrollX+=this.scrollspeed;
-        if(this.vuelarge == false)
+        if(this.vuelarge == false) //tant que la vue n'est pas large
         {
-            this.cameras.main.centerOn(this.player.x,this.player.y);
-            this.cameras.main.useBounds=true;
+            this.cameras.main.centerOn(this.player.x,this.player.y); //la caméra se centre sur le joueur
+            this.cameras.main.useBounds=true; //la caméra ne peut pas traverser la map
             this.cameras.main.setBounds(0, 0, this.largeurniveau, this.hauteurniveau);
         }
     }
