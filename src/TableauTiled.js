@@ -36,6 +36,7 @@ class TableauTiled extends Tableau1 {
         this.load.image('Emit3', 'assets/anims/Emit3.png');
         this.load.image('Emit4', 'assets/anims/Emit4.png');
         this.load.image('Emit5', 'assets/anims/Emit5.png');
+        this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('Emit6', 'assets/anims/Emit6.png');
         this.loadFrames('TreeA', 'assets/aa/aa',6);
         this.loadFrames('TreeC', 'assets/ac/ac',6);
@@ -232,6 +233,36 @@ class TableauTiled extends Tableau1 {
 
 
 
+        //Création du player et de toutes ses anims
+        this.player = this.physics.add.sprite(50, 300, 'player');
+        this.player.setBounce(0.1);
+        this.player.setCollideWorldBounds(false);
+
+
+        //anim de marche
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('player', {
+                prefix: 'robo_player_',
+                start: 2,
+                end: 3,
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'idle',
+            frames: [{key: 'player', frame: 'robo_player_0'}],
+            frameRate: 10,
+        });
+        //anim de saut
+        this.anims.create({
+            key: 'jump',
+            frames: [{key: 'player', frame: 'robo_player_1'}],
+            frameRate: 10,
+        });
+
+
         //Les layers d'objets : on charge d'abord la physique des objets.
         this.arbre4 = this.physics.add.group({
             allowGravity: false,
@@ -308,7 +339,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('RefletEau').objects.forEach((Emit2) => {
             this.Emit2Sprite = this.Emit2.create(Emit2.x+32, Emit2.y + 232 - Emit2.height, 'Emit2').setOrigin(0).setVisible(0);
             this.Emit2Sprite.body.setSize(Emit2.width, Emit2.height).setOffset(0,0);
-            this.Emit2SpriteFX = this.add.particles('water')
+            this.Emit2SpriteFX = this.add.particles('water')//On charge les particules à appliquer au layer
             this.Emit2SpriteFX.createEmitter(this.configFX6)
             this.Emit2SpriteFX.x = this.Emit2Sprite.x
             this.Emit2SpriteFX.y = this.Emit2Sprite.y
@@ -323,7 +354,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Etoiles').objects.forEach((Emit3) => {
             this.Emit3Sprite = this.Emit3.create(Emit3.x+32, Emit3.y + 232 - Emit3.height, 'Emit3').setOrigin(0).setVisible(0);
             this.Emit3Sprite.body.setSize(Emit3.width, Emit3.height).setOffset(0,0);
-            this.Emit3SpriteFX = this.add.particles('water')
+            this.Emit3SpriteFX = this.add.particles('water')//On charge les particules à appliquer au layer
             this.Emit3SpriteFX.createEmitter(this.configFX7)
             this.Emit3SpriteFX.x = this.Emit3Sprite.x
             this.Emit3SpriteFX.y = this.Emit3Sprite.y
@@ -338,7 +369,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('BrillanceArbre').objects.forEach((Emit4) => {
             this.Emit4Sprite = this.Emit4.create(Emit4.x+16, Emit4.y + 232 - Emit4.height, 'Emit4').setOrigin(0).setVisible(0);
             this.Emit4Sprite.body.setSize(Emit4.width, Emit4.height).setOffset(0,0);
-            this.Emit4SpriteFX = this.add.particles('luciole2')
+            this.Emit4SpriteFX = this.add.particles('luciole2')//On charge les particules à appliquer au layer
             this.Emit4SpriteFX.createEmitter(this.configFX8)
             this.Emit4SpriteFX.x = this.Emit4Sprite.x
             this.Emit4SpriteFX.y = this.Emit4Sprite.y
@@ -353,7 +384,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('RoseeMatin').objects.forEach((Emit5) => {
             this.Emit5Sprite = this.Emit5.create(Emit5.x+32, Emit5.y + 232 - Emit5.height, 'Emit5').setOrigin(0).setVisible(0);
             this.Emit5Sprite.body.setSize(Emit5.width, Emit5.height).setOffset(0,0);
-            this.Emit5SpriteFX = this.add.particles('nuage')
+            this.Emit5SpriteFX = this.add.particles('nuage')//On charge les particules à appliquer au layer
             this.Emit5SpriteFX.createEmitter(this.configFX9)
             this.Emit5SpriteFX.x = this.Emit5Sprite.x
             this.Emit5SpriteFX.y = this.Emit5Sprite.y
@@ -368,7 +399,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('PartSol').objects.forEach((Emit6) => {
             this.Emit6Sprite = this.Emit6.create(Emit6.x+32, Emit6.y + 232 - Emit6.height, 'Emit6').setOrigin(0).setVisible(0);
             this.Emit6Sprite.body.setSize(Emit6.width, Emit6.height).setOffset(0,0);
-            this.Emit6SpriteFX = this.add.particles('luciole2')
+            this.Emit6SpriteFX = this.add.particles('luciole2')//On charge les particules à appliquer au layer
             this.Emit6SpriteFX.createEmitter(this.configFX10)
             this.Emit6SpriteFX.x = this.Emit6Sprite.x
             this.Emit6SpriteFX.y = this.Emit6Sprite.y
@@ -382,7 +413,7 @@ class TableauTiled extends Tableau1 {
 
         map.getObjectLayer('Luciole1').objects.forEach((luciole1) => {
             this.luciole1Sprite = this.luciole1.create(luciole1.x, luciole1.y + 200 - luciole1.height, 'luciole1');
-            this.luciole1SpriteFX = this.add.particles('luciole1')
+            this.luciole1SpriteFX = this.add.particles('luciole1')//On charge les particules à appliquer au layer
             this.luciole1SpriteFX.createEmitter(this.configFX1)
             this.luciole1SpriteFX.x = this.luciole1Sprite.x
             this.luciole1SpriteFX.y = this.luciole1Sprite.y
@@ -398,7 +429,7 @@ class TableauTiled extends Tableau1 {
 
         map.getObjectLayer('Luciole2').objects.forEach((luciole2) => {
             this.luciole2Sprite = this.luciole2.create(luciole2.x, luciole2.y + 200 - luciole2.height, 'luciole2');
-            this.luciole2SpriteFX = this.add.particles('luciole2')
+            this.luciole2SpriteFX = this.add.particles('luciole2')//On charge les particules à appliquer au layer
             this.luciole2SpriteFX.createEmitter(this.configFX2)
             this.luciole2SpriteFX.x = this.luciole2Sprite.x
             this.luciole2SpriteFX.y = this.luciole2Sprite.y
@@ -411,7 +442,7 @@ class TableauTiled extends Tableau1 {
 
         map.getObjectLayer('Luciole3').objects.forEach((luciole3) => {
             this.luciole3Sprite = this.luciole3.create(luciole3.x, luciole3.y + 200 - luciole3.height, 'luciole3');
-            this.luciole3SpriteFX = this.add.particles('luciole3')
+            this.luciole3SpriteFX = this.add.particles('luciole3')//On charge les particules à appliquer au layer
             this.luciole3SpriteFX.createEmitter(this.configFX3)
             this.luciole3SpriteFX.x = this.luciole3Sprite.x
             this.luciole3SpriteFX.y = this.luciole3Sprite.y
@@ -424,7 +455,7 @@ class TableauTiled extends Tableau1 {
 
         map.getObjectLayer('Luciole4').objects.forEach((luciole4) => {
             this.luciole4Sprite = this.luciole4.create(luciole4.x, luciole4.y + 200 - luciole4.height, 'luciole4');
-            this.luciole4SpriteFX = this.add.particles('luciole4')
+            this.luciole4SpriteFX = this.add.particles('luciole4')//On charge les particules à appliquer au layer
             this.luciole4SpriteFX.createEmitter(this.configFX4)
             this.luciole4SpriteFX.x = this.luciole4Sprite.x
             this.luciole4SpriteFX.y = this.luciole4Sprite.y
