@@ -129,7 +129,7 @@ class TableauTiled extends Tableau1 {
             blendMode: 'ADD'
         };
 
-
+        //Terre
         this.configFX5 = {
             frequency:200,
             lifespan: 2000,
@@ -142,7 +142,7 @@ class TableauTiled extends Tableau1 {
             alpha: { start: 1, end: 0 },
             blendMode: Phaser.BlendModes.ADD,
         };
-
+        //Reflet Eau
         this.configFX6 = {
             frequency:1500,
             lifespan: 2500,
@@ -155,6 +155,7 @@ class TableauTiled extends Tableau1 {
             blendMode: Phaser.BlendModes.ADD,
         };
 
+        //Etoiles
         this.configFX7 = {
             speed: { min: -200, max: 200 },
             angle: { min: 0, max: 360 },
@@ -164,6 +165,7 @@ class TableauTiled extends Tableau1 {
             lifespan: 100,
         };
 
+        //Brillance arbre
         this.configFX8 = {
             frequency:800,
             lifespan: 4000,
@@ -177,6 +179,7 @@ class TableauTiled extends Tableau1 {
             blendMode: Phaser.BlendModes.ADD,
         };
 
+        //Rosée matin
         this.configFX9 = {
             frequency:450,
             lifespan: 18000,
@@ -190,6 +193,7 @@ class TableauTiled extends Tableau1 {
             blendMode: Phaser.BlendModes.ADD,
         };
 
+        //Partsol
         this.configFX10 = {
             frequency:250,
             lifespan: 1500,
@@ -228,39 +232,10 @@ class TableauTiled extends Tableau1 {
         const platforms4 = map.createLayer('plan4', tileset, 0, 200);
         const platforms3 = map.createLayer('plan3', tileset, 0, 200);
         const platforms2 = map.createLayer('Decor', tileset, 0, 200);
-        const platforms0 = map.createLayer('Plan1', tileset, 0, 200);
         const platforms1 = map.createLayer('Base', tileset, 0, 200);
 
 
 
-        //Création du player et de toutes ses anims
-        this.player = this.physics.add.sprite(50, 300, 'player');
-        this.player.setBounce(0.1);
-        this.player.setCollideWorldBounds(false);
-
-
-        //anim de marche
-        this.anims.create({
-            key: 'walk',
-            frames: this.anims.generateFrameNames('player', {
-                prefix: 'robo_player_',
-                start: 2,
-                end: 3,
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'idle',
-            frames: [{key: 'player', frame: 'robo_player_0'}],
-            frameRate: 10,
-        });
-        //anim de saut
-        this.anims.create({
-            key: 'jump',
-            frames: [{key: 'player', frame: 'robo_player_1'}],
-            frameRate: 10,
-        });
 
 
         //Les layers d'objets : on charge d'abord la physique des objets.
@@ -460,6 +435,38 @@ class TableauTiled extends Tableau1 {
             this.luciole4SpriteFX.x = this.luciole4Sprite.x
             this.luciole4SpriteFX.y = this.luciole4Sprite.y
         });
+
+        //Création du player et de toutes ses anims
+        this.player = this.physics.add.sprite(50, 300, 'player');
+        this.player.setBounce(0.1);
+        this.player.setCollideWorldBounds(false);
+
+
+        //anim de marche
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('player', {
+                prefix: 'robo_player_',
+                start: 2,
+                end: 3,
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'idle',
+            frames: [{key: 'player', frame: 'robo_player_0'}],
+            frameRate: 10,
+        });
+        //anim de saut
+        this.anims.create({
+            key: 'jump',
+            frames: [{key: 'player', frame: 'robo_player_1'}],
+            frameRate: 10,
+        });
+
+        //On charge le dernier layer Tiled pour qu'il soit en premier plant !
+        const platforms0 = map.createLayer('Plan1', tileset, 0,200);
 
 
 
