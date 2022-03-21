@@ -242,7 +242,7 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Arbre4').objects.forEach((arbre4) => {
             const arbre4Sprite = this.arbre4.create(arbre4.x, arbre4.y + 200 - arbre4.height, 'arbre4').setOrigin(0);
             arbre4Sprite.play('TreeMoove4'); //On ajoute l'animation
-            arbre4Sprite.scrollFactorX=0.97;
+            arbre4Sprite.scrollFactorX=0.97; //On ajoute la parallaxe
         });
 
 
@@ -293,8 +293,8 @@ class TableauTiled extends Tableau1 {
         map.getObjectLayer('Terre').objects.forEach((Emit1) => {
             this.Emit1Sprite = this.Emit1.create(Emit1.x+64, Emit1.y + 232 - Emit1.height, 'Emit1').setOrigin(0).setVisible(0);
             this.Emit1Sprite.body.setSize(Emit1.width, Emit1.height).setOffset(0,0);
-            this.Emit1SpriteFX = this.add.particles('fumer')
-            this.Emit1SpriteFX.createEmitter(this.configFX5)
+            this.Emit1SpriteFX = this.add.particles('fumer') //On charge les particules à appliquer au layer
+            this.Emit1SpriteFX.createEmitter(this.configFX5) //On crée l'émetteur
             this.Emit1SpriteFX.x = this.Emit1Sprite.x
             this.Emit1SpriteFX.y = this.Emit1Sprite.y
         });
@@ -445,6 +445,7 @@ class TableauTiled extends Tableau1 {
         this.physics.add.collider(this.player, platforms1);
 
 
+        //On ajoute la parallaxe pour les layers de tiles.
         platforms1.scrollFactorX=1; //SOL
         platforms0.scrollFactorX=1.03;//Bushes
         platforms2.scrollFactorX=0.95; //Bushes2
