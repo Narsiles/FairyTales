@@ -232,11 +232,6 @@ class TableauTiled extends Tableau1 {
         const platforms4 = map.createLayer('plan4', tileset, 0, 200);
         const platforms3 = map.createLayer('plan3', tileset, 0, 200);
         const platforms2 = map.createLayer('Decor', tileset, 0, 200);
-        const platforms1 = map.createLayer('Base', tileset, 0, 200);
-
-
-
-
 
         //Les layers d'objets : on charge d'abord la physique des objets.
         this.arbre4 = this.physics.add.group({
@@ -288,8 +283,7 @@ class TableauTiled extends Tableau1 {
             arbre1Sprite.scrollFactorX=0.97;
         });
 
-
-
+        const platforms1 = map.createLayer('Base', tileset, 0, 200);
 
         this.Emit1 = this.physics.add.group({
             allowGravity: false,
@@ -348,6 +342,7 @@ class TableauTiled extends Tableau1 {
             this.Emit4SpriteFX.createEmitter(this.configFX8)
             this.Emit4SpriteFX.x = this.Emit4Sprite.x
             this.Emit4SpriteFX.y = this.Emit4Sprite.y
+            this.Emit4SpriteFX.scrollFactorX=0.97;
         });
 
 
